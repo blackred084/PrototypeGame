@@ -12,10 +12,11 @@ import java.awt.image.BufferedImage;
 
 public abstract class Entity {
 
-    private final int UP = 3;
-    private final int DOWN = 2;
     private final int RIGHT = 0;
     private final int LEFT = 1;
+    private final int DOWN = 2;
+    private final int UP = 3;
+    private final int FALLEN=4;
     protected int currentAnimation;
 
     protected Animation ani;
@@ -28,6 +29,7 @@ public abstract class Entity {
     protected boolean right;
     protected boolean left;
     protected boolean attack;
+    protected boolean fallen;
     protected int attackSpeed;
     protected int attackDuration;
 
@@ -106,7 +108,13 @@ public abstract class Entity {
             if (currentAnimation != RIGHT || ani.getDelay() == -1) {
                 setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 5);
             }
-        } else {
+        }else if(fallen){
+            if(currentAnimation!=FALLEN||ani.getDelay()==-1){
+                setAnimation(FALLEN,sprite.getSpriteArray(FALLEN),5);
+            }
+
+        }
+            else{
             setAnimation(currentAnimation, sprite.getSpriteArray(currentAnimation), -1);
         }
     }

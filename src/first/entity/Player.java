@@ -12,66 +12,66 @@ public class Player extends Entity {
 
     public Player(Sprite sprite, Vector2f origin, int size) {
         super(sprite, origin, size);
-        acc=2f;
-        maxSpeed=3f;
+        acc = 2f;
+        maxSpeed = 3f;
     }
 
     public void move() {
-        if(up) {
+        if (up) {
 //            currentDirection = UP;
             dy -= acc;
-            if(dy < -maxSpeed) {
+            if (dy < -maxSpeed) {
                 dy = -maxSpeed;
             }
         } else {
-            if(dy < 0) {
+            if (dy < 0) {
                 dy += deacc;
-                if(dy > 0) {
+                if (dy > 0) {
                     dy = 0;
                 }
             }
         }
 
-        if(down) {
+        if (down) {
 //            currentDirection = DOWN;
             dy += acc;
-            if(dy > maxSpeed) {
+            if (dy > maxSpeed) {
                 dy = maxSpeed;
             }
         } else {
-            if(dy > 0) {
+            if (dy > 0) {
                 dy -= deacc;
-                if(dy < 0) {
+                if (dy < 0) {
                     dy = 0;
                 }
             }
         }
 
-        if(left) {
+        if (left) {
 //            currentDirection = LEFT;
             dx -= acc;
-            if(dx < -maxSpeed) {
+            if (dx < -maxSpeed) {
                 dx = -maxSpeed;
             }
         } else {
-            if(dx < 0) {
+            if (dx < 0) {
                 dx += deacc;
-                if(dx > 0) {
+                if (dx > 0) {
                     dx = 0;
                 }
             }
         }
 
-        if(right) {
+        if (right) {
 //            currentDirection = RIGHT;
             dx += acc;
-            if(dx > maxSpeed) {
+            if (dx > maxSpeed) {
                 dx = maxSpeed;
             }
         } else {
-            if(dx > 0) {
+            if (dx > 0) {
                 dx -= deacc;
-                if(dx < 0) {
+                if (dx < 0) {
                     dx = 0;
                 }
             }
@@ -81,23 +81,23 @@ public class Player extends Entity {
     public void update() {
         super.update();
         move();
-        PlayState.map.x+=dx;
-        PlayState.map.y+=dy;
-        pos.x+=dx;
-        pos.y+=dy;
+        PlayState.map.x += dx;
+        PlayState.map.y += dy;
+        pos.x += dx;
+        pos.y += dy;
     }
 
 
     @Override
     public void render(Graphics2D g) {
-        g.drawImage(ani.getImage(),(int)(pos.getWorldVar().x),(int)(pos.getWorldVar().y),size,size,null);
+        g.drawImage(ani.getImage(), (int) (pos.getWorldVar().x), (int) (pos.getWorldVar().y), size, size, null);
 
     }
 
     public void input(MouseHandler mouse, KeyHandler key) {
 
-        if(mouse.getButton()== 1){
-            System.out.println("Player:  "+pos.x+", "+pos.y);
+        if (mouse.getButton() == 1) {
+            System.out.println("Player:  " + pos.x + ", " + pos.y);
         }
         up = key.up.down;
         down = key.down.down;
@@ -122,7 +122,7 @@ public class Player extends Entity {
 
         } else right = false;
 
-    if (attack) {
+        if (attack) {
             attack = true;
 
         } else attack = false;
