@@ -1,5 +1,6 @@
 package first.entity;
 
+import first.GamePanel;
 import first.graphic.Sprite;
 import first.states.PlayState;
 import first.util.KeyHandler;
@@ -78,13 +79,34 @@ public class Player extends Entity {
         }
     }
 
+    private void resetPosition() {
+        System.out.println("Reseting Player...");
+        pos.x = GamePanel.width / 2 - 32;
+        PlayState.map.x = 0;
+
+        pos.y = GamePanel.height / 2 - 32;
+        PlayState.map.y = 0;
+
+    }
+
     public void update() {
         super.update();
-        move();
-        PlayState.map.x += dx;
-        PlayState.map.y += dy;
-        pos.x += dx;
-        pos.y += dy;
+        if (!fallen) {
+            move();
+            if (!bounds.collisionTile(dx, 0)) {
+                PlayState.map.x += dx;
+                pos.x += dx;
+            }
+            if (!bounds.collisionTile(0, dy)) {
+                PlayState.map.y += dy;
+                pos.y += dy;
+            }
+        } else {
+            if (ani.hasPlayedOnce()) {
+                resetPosition();
+                fallen = false;
+            }
+        }
     }
 
 
@@ -104,27 +126,36 @@ public class Player extends Entity {
         left = key.left.down;
         right = key.right.down;
         attack = key.attack.down;
-        if (up) {
-            up = true;
-        } else up = false;
-        if (down) {
-            down = true;
-        } else {
-            down = false;
+
+        if (!fallen) {
+            if (up) {
+                up = true;
+            } else up = false;
+            if (down) {
+                down = true;
+            } else {
+                down = false;
+            }
+            if (left) {
+                left = true;
+            } else {
+                left = false;
+            }
+            if (right) {
+                right = true;
+
+            } else right = false;
+
+            if (attack) {
+                attack = true;
+
+            } else attack = false;
+        }else {
+            up=false;
+            down=false;
+            right=false;
+            left=false;
         }
-        if (left) {
-            left = true;
-        } else {
-            left = false;
-        }
-        if (right) {
-            right = true;
 
-        } else right = false;
-
-        if (attack) {
-            attack = true;
-
-        } else attack = false;
     }
 }

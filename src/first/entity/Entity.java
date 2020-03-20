@@ -57,9 +57,15 @@ public abstract class Entity {
         setAnimation(RIGHT, sprite.getSpriteArray(RIGHT), 10);
     }
 
+    public Vector2f getPos() {
+        return pos;
+    }
+
     public void setSprite(Sprite sprite) {
         this.sprite = sprite;
     }
+
+    public void setFALLEN(boolean i){fallen=i;}
 
     public void setSize(int i) {
         size = i;
@@ -84,6 +90,7 @@ public abstract class Entity {
     public AABB getBounds() {
         return bounds;
     }
+
 
     public void setAnimation(int i, BufferedImage[] frames, int delay) {
         currentAnimation = i;
@@ -110,11 +117,10 @@ public abstract class Entity {
             }
         }else if(fallen){
             if(currentAnimation!=FALLEN||ani.getDelay()==-1){
-                setAnimation(FALLEN,sprite.getSpriteArray(FALLEN),5);
+                setAnimation(FALLEN,sprite.getSpriteArray(FALLEN),15);
             }
 
-        }
-            else{
+        } else{
             setAnimation(currentAnimation, sprite.getSpriteArray(currentAnimation), -1);
         }
     }

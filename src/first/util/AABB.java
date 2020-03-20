@@ -1,6 +1,9 @@
 package first.util;
 
 import first.entity.Entity;
+import first.tiles.TileMapObj;
+import first.tiles.blocks.Block;
+import first.tiles.blocks.HoleBlock;
 
 public class AABB {
 
@@ -95,5 +98,38 @@ public class AABB {
         return false;
     }
 
+    public boolean collisionTile(float ax, float ay) {
+        if (TileMapObj.twoBlocks != null) {
+            int xt;
+            int yt;
+
+            for (int c = 0; c < 4; c++) {
+
+                xt = (int) ((e.getPos().x + ax) + (c % 2) * e.getBounds().getWidth() + e.getBounds().getXOffset()) / 64;
+                yt = (int) ((e.getPos().y + ay) + (c / 2) * e.getBounds().getHeight() + e.getBounds().getYOffset()) / 64;
+
+                if (xt <= 0 || yt <= 0 || xt + (yt * TileMapObj.height) < 0 || xt + (yt * TileMapObj.height) > (TileMapObj.height * TileMapObj.width) - 2) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private float getYOffset() {
+        return yOffset;
+    }
+
+    private float getXOffset() {
+        return xOffset;
+    }
+
+    private float getHeight() {
+        return h;
+    }
+
+    private float getWidth() {
+        return w;
+    }
 
 }
